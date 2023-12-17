@@ -14,7 +14,6 @@ int main() {
                     }
                 }
             }
-            printf(a, b, c, d);
         }
     }
 }
