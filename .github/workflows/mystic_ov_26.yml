@@ -1,10 +1,15 @@
 name: C-Runner
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  workflow_dispatch:
+    inputs:
+      File_Name:
+        description: '실행할 C 코드 파일명'
+        required: true
+        default: 'mystic_ov_26.c'
+        type: string
+
+run-name: C-Runner ( ${{ github.event.inputs.File_Name }} )
 
 jobs:
   build:
@@ -12,12 +17,12 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Install GCC
       run: sudo apt-get install gcc
 
     - name: Build and Run C Code
       run: |
-        gcc -o my_program mystic_ov_26.c -lm  # Note: -lm flag to link with math library
-        ./my_program
+        gcc -o C_Program ${{ github.event.inputs.File_Name }} -lm  # Note: -lm flag to link with math library
+        ./C_Program
