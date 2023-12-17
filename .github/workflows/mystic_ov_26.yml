@@ -1,0 +1,27 @@
+name: C-Runner
+
+on:
+  workflow_dispatch:
+    inputs:
+      File_Name:
+        description: '실행할 C 코드 파일명'
+        required: true
+        default: 'mystic_ov_26.c'
+        type: string
+
+run-name: C-Runner ( ${{ github.event.inputs.File_Name }} )
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install GCC
+      run: sudo apt-get install gcc
+
+    - name: Build and Run C Code
+      run: |
+        gcc -o C_Program ${{ github.event.inputs.File_Name }}
